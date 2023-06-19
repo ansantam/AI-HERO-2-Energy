@@ -9,6 +9,8 @@
 #SBATCH --cpus-per-task=76
 #SBATCH --time=20:00:00
 #SBATCH --mail-type="all"
+#SBATCH --output=slurm_log/ai-hero_%j.out
+
 
 export CUDA_CACHE_DISABLE=1
 export OMP_NUM_THREADS=76
@@ -21,5 +23,5 @@ module load mpi/openmpi/4.0
 module load lib/hdf5/1.12
 module load devel/cuda/11.8
 
-source ${group_workspace}/energy_baseline_env/bin/activate
+source ${group_workspace}/energy_env/bin/activate
 srun python ${group_workspace}/train.py --root ${data_workspace}

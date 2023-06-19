@@ -135,3 +135,7 @@ dmypy.json
 # virtual environment
 energy_env/
 *-train-data/
+# model
+wandb/
+model/
+slurm_log/

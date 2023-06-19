@@ -2,6 +2,7 @@
 
 import argparse
 import random
+import os
 
 import numpy as np
 import torch
@@ -12,6 +13,7 @@ from dataset import DroneImages
 from metric import to_mask, IntersectionOverUnion
 from model import MaskRCNN
 from tqdm import tqdm
+import wandb
 
 
 def collate_fn(batch) -> tuple:
@@ -23,6 +25,17 @@ def get_device() -> torch.device:
 
 
 def train(hyperparameters: argparse.Namespace):
+    # initialize wandb
+    wandb.init(entity="ibpt-ml",project="aihero-energy", config=hyperparameters)
+    hyperparameters = wandb.config
+
+    # create a folder to save the model
+    save_folder = f'./models/{wandb.run.name}'
+    os.makedirs(save_folder, exist_ok=True)
+
+    # log the hyperparameters
+    print(hyperparameters)
+
     # set fixed seeds for reproducible execution
     random.seed(hyperparameters.seed)
     np.random.seed(hyperparameters.seed)
@@ -34,10 +47,10 @@ def train(hyperparameters: argparse.Namespace):
 
     # set up the dataset
     drone_images = DroneImages(hyperparameters.root)
-    train_data, test_data = torch.utils.data.random_split(drone_images, [0.8, 0.2])
+    train_data, test_data = torch.utils.data.random_split(drone_images, [hyperparameters.split, 1 - hyperparameters.split])
 
     # initialize MaskRCNN model
-    model = MaskRCNN()
+    model = MaskRCNN(trainable_backbone_layers=hyperparameters.n_trainablebackbone)
     model.to(device)
 
     # set up optimization procedure
@@ -102,14 +115,23 @@ def train(hyperparameters: argparse.Namespace):
         # output the losses
         print(f'Epoch {epoch}')
         print(f'\tTrain loss: {train_loss}')
-        print(f'\tTrain IoU:  {train_metric.compute()}')
-        print(f'\tTest IoU:   {test_metric.compute()}')
+        train_iou = train_metric.compute()
+        test_iou = test_metric.compute()
+        print(f'\tTrain IoU:  {train_iou}')
+        print(f'\tTest IoU:   {test_iou}')
+
+        # log the metrics to wandb
+        wandb.log({"train_loss": train_loss, "train_iou": train_iou, "test_iou": test_iou})
+
+        # save the model
+
+        torch.save(model.state_dict(), f'{save_folder}/checkpoint_{epoch}.pt')
 
         # save the best performing model on disk
-        if test_metric.compute() > best_iou:
-            best_iou = test_metric.compute()
+        if test_iou > best_iou:
+            best_iou = test_iou
             print('\tSaving better model\n')
-            torch.save(model.state_dict(), 'checkpoint.pt')
+            torch.save(model.state_dict(), f'{save_folder}/checkpoint_best.pt')
         else:
             print('\n')
 
@@ -117,6 +139,8 @@ def train(hyperparameters: argparse.Namespace):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-b', '--batch', default=1, help='batch size', type=int)
+    parser.add_argument('-n', '--n_trainablebackbone', default=5, help='number of trainable backbone layers', type=int)
+    parser.add_argument('-p', '--split', default=0.8, help='train evaluation split', type=float)
     # parser.add_argument('-e', '--epochs', default=100, help='number of training epochs', type=int)
     parser.add_argument('-e', '--epochs', default=10, help='number of training epochs', type=int)
     parser.add_argument('-l', '--lr', default=1e-4, help='learning rate of the optimizer', type=float)
