@@ -6,7 +6,7 @@
 #SBATCH --gres=gpu:4
 #SBATCH --ntasks=1
 #SBATCH --ntasks-per-node=1
-#SBATCH --cpus-per-task=76
+#SBATCH --cpus-per-task=2
 #SBATCH --time=20:00:00
 #SBATCH --mail-type="all"
 #SBATCH --output=slurm_log/ai-hero_%j.out
@@ -24,4 +24,4 @@ module load lib/hdf5/1.12
 module load devel/cuda/11.8
 
 source ${group_workspace}/energy_env/bin/activate
-srun python ${group_workspace}/train.py --root ${data_workspace}
+srun python ${group_workspace}/train.py --root ${data_workspace} --batch=2 --epoch=20 --n_trainablebackbone=3

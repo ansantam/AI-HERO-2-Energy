@@ -52,7 +52,7 @@ def train(hyperparameters: argparse.Namespace):
     train_data, test_data = torch.utils.data.random_split(drone_images, [hyperparameters.split, 1 - hyperparameters.split])
 
     # initialize MaskRCNN model
-    model = MaskRCNN(trainable_backbone_layers=hyperparameters.n_trainablebackbone)
+    model = MaskRCNN(trainable_backbone_layers=hyperparameters.n_trainablebackbone, weights=hyperparameters.weights)
     model.to(device)
 
     # set up optimization procedure
@@ -149,7 +149,7 @@ if __name__ == '__main__':
     parser.add_argument('-s', '--seed', default=42, help='constant random seed for reproduction', type=int)
     # parser.add_argument('root', help='path to the data root', type=str)
     parser.add_argument('--root', default='/hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/energy-train-data/', help='path to the data root', type=str)
-    parser.add_argument('--weight', default='COCO_V1', help='use pretrained weights', type=str)
+    parser.add_argument('--weight', default='DEFAULT', help='use pretrained weights', type=str)
 
     arguments = parser.parse_args()
     train(arguments)
