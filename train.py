@@ -122,7 +122,7 @@ if __name__ == '__main__':
     parser.add_argument('-l', '--lr', default=1e-4, help='learning rate of the optimizer', type=float)
     parser.add_argument('-s', '--seed', default=42, help='constant random seed for reproduction', type=int)
     # parser.add_argument('root', help='path to the data root', type=str)
-    parser.add_argument('--root', default='/hkfs/work/workspace/scratch/dz4120-energy-train-data/', help='path to the data root', type=str)
+    parser.add_argument('--root', default='/hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/energy-train-data/', help='path to the data root', type=str)
 
     arguments = parser.parse_args()
     train(arguments)
