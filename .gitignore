@@ -137,5 +137,5 @@ energy_env/
 *-train-data/
 # model
 wandb/
-model/
+models/
 slurm_log/

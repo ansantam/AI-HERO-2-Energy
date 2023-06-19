@@ -34,7 +34,9 @@ def train(hyperparameters: argparse.Namespace):
     os.makedirs(save_folder, exist_ok=True)
 
     # log the hyperparameters
-    print(hyperparameters)
+    config_dict = dict(hyperparameters)
+    for key in config_dict.keys():
+        print(f"{key}: {config_dict[key]}")
 
     # set fixed seeds for reproducible execution
     random.seed(hyperparameters.seed)
@@ -147,6 +149,7 @@ if __name__ == '__main__':
     parser.add_argument('-s', '--seed', default=42, help='constant random seed for reproduction', type=int)
     # parser.add_argument('root', help='path to the data root', type=str)
     parser.add_argument('--root', default='/hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/energy-train-data/', help='path to the data root', type=str)
+    parser.add_argument('--weight', default='COCO_V1', help='use pretrained weights', type=str)
 
     arguments = parser.parse_args()
     train(arguments)
