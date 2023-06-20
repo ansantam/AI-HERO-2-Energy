@@ -24,4 +24,4 @@ module load lib/hdf5/1.12
 module load devel/cuda/11.8
 
 source ${group_workspace}/energy_env/bin/activate
-srun python ${group_workspace}/train.py --root ${data_workspace} --batch=2 --epoch=20 --n_trainablebackbone=3
+torchrun --nproc-per-node=4 ${group_workspace}/train.py --root ${data_workspace} --batch=2 --epoch=15 --n_trainablebackbone=3 --normalize=True --autocast=True --optimizer=adam --backbone=resnet18 --grayscale=True

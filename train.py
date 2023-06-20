@@ -8,12 +8,17 @@ import numpy as np
 import torch
 import torch.optim
 import torch.utils.data
+from torch.utils.data.distributed import DistributedSampler
+from torch.nn.parallel import DistributedDataParallel
+# import torch.multiprocessing as mp
+from torch.distributed import init_process_group, destroy_process_group
 
 from dataset import DroneImages
 from metric import to_mask, IntersectionOverUnion
 from model import MaskRCNN
-from tqdm import tqdm
+# from tqdm import tqdm
 import wandb
+from torch.cuda.amp import autocast, GradScaler
 
 
 def collate_fn(batch) -> tuple:
@@ -21,22 +26,22 @@ def collate_fn(batch) -> tuple:
 
 
 def get_device() -> torch.device:
-    return torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    return torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 def train(hyperparameters: argparse.Namespace):
+    device = int(os.environ["LOCAL_RANK"])
+    # ddp_setup(rank, world_size)
+    ddp_setup_torchrun()
     # initialize wandb
-    wandb.init(entity="ibpt-ml",project="aihero-energy", config=hyperparameters)
+
     hyperparameters = wandb.config
 
     # create a folder to save the model
-    save_folder = f'./models/{wandb.run.name}'
+    save_folder = f"./models/{wandb.run.name}"
     os.makedirs(save_folder, exist_ok=True)
 
-    # log the hyperparameters
-    config_dict = dict(hyperparameters)
-    for key in config_dict.keys():
-        print(f"{key}: {config_dict[key]}")
+
 
     # set fixed seeds for reproducible execution
     random.seed(hyperparameters.seed)
@@ -44,47 +49,93 @@ def train(hyperparameters: argparse.Namespace):
     torch.manual_seed(hyperparameters.seed)
 
     # determines the execution device, i.e. CPU or GPU
-    device = get_device()
-    print(f'Training on {device}')
+    # device = get_device()
+    print(f"Training on gpu:{device}")
+
+    # if in grayscale mode
+    if hyperparameters.grayscale:
+        n_channels = 3
+    else:
+        n_channels = 5
 
     # set up the dataset
-    drone_images = DroneImages(hyperparameters.root)
-    train_data, test_data = torch.utils.data.random_split(drone_images, [hyperparameters.split, 1 - hyperparameters.split])
+    drone_images = DroneImages(hyperparameters.root, grayscale=hyperparameters.grayscale)
+    train_data, test_data = torch.utils.data.random_split(
+        drone_images, [hyperparameters.split, 1 - hyperparameters.split]
+    )
+
+    train_sampler = DistributedSampler(train_data)
+    test_sampler = DistributedSampler(test_data, shuffle=False)
 
     # initialize MaskRCNN model
-    model = MaskRCNN(trainable_backbone_layers=hyperparameters.n_trainablebackbone, weights=hyperparameters.weights)
+    model = MaskRCNN(
+        trainable_backbone_layers=hyperparameters.n_trainablebackbone,
+        weights=hyperparameters.weight,
+        in_channels=n_channels,
+    )
+    # load model checkpoint if available
+    if hyperparameters.load:
+        print(f"Restoring model checkpoint from {hyperparameters.load}")
+        model.load_state_dict(torch.load(hyperparameters.load))
+    
     model.to(device)
+    model = DistributedDataParallel(model)
 
     # set up optimization procedure
-    optimizer = torch.optim.Adam(model.parameters(), lr=hyperparameters.lr)
-    best_iou = 0.
+    if hyperparameters.optimizer == "adam":
+        optimizer = torch.optim.Adam(model.parameters(), lr=hyperparameters.lr)
+    elif hyperparameters.optimizer == "sgd":
+        optimizer = torch.optim.SGD(
+            model.parameters(), lr=hyperparameters.lr, momentum=0.9
+        )
+    else:
+        raise ValueError(f"Unknown optimizer {hyperparameters.optimizer}")
+    best_iou = 0.0
 
+    # set up mixed precision training
+    scaler = GradScaler()
+
+    # set up data loaders
+    train_loader = torch.utils.data.DataLoader(
+        train_data,
+        sampler=train_sampler,
+        batch_size=hyperparameters.batch,
+        # shuffle=True,
+        drop_last=True,
+        collate_fn=collate_fn,
+    )
+    test_loader = torch.utils.data.DataLoader(
+        test_data,
+        batch_size=hyperparameters.batch,
+        sampler=test_sampler,
+        collate_fn=collate_fn,
+    )
     # start the actual training procedure
     for epoch in range(hyperparameters.epochs):
         # set the model into training mode
         model.train()
-        train_loader = torch.utils.data.DataLoader(
-                train_data,
-                batch_size=hyperparameters.batch,
-                shuffle=True,
-                drop_last=True,
-                collate_fn=collate_fn)
 
         # training procedure
         train_loss = 0.0
-        train_metric = IntersectionOverUnion(task='multiclass', num_classes=2)
+        train_metric = IntersectionOverUnion(task="multiclass", num_classes=2)
         train_metric = train_metric.to(device)
-        
-        for i, batch in enumerate(tqdm(train_loader, desc='train')):
+
+        # set epoch for sampler
+        train_sampler.set_epoch(epoch)
+        for i, batch in enumerate(train_loader):
             x, label = batch
             x = list(image.to(device) for image in x)
             label = [{k: v.to(device) for k, v in l.items()} for l in label]
             model.zero_grad()
-            losses = model(x, label)
-            loss = sum(l for l in losses.values())
+            with autocast(enabled=hyperparameters.autocast, dtype=torch.float16):
+                losses = model(x, label)
+                loss = sum(l for l in losses.values())
 
-            loss.backward()
-            optimizer.step()
+            scaler.scale(loss).backward()
+            scaler.step(optimizer)
+            scaler.update()
+            # loss.backward()
+            # optimizer.step()
             train_loss += loss.item()
 
             # compute metric
@@ -93,18 +144,17 @@ def train(hyperparameters: argparse.Namespace):
                 train_predictions = model(x)
                 train_metric(*to_mask(train_predictions, label))
                 model.train()
-                
+
         train_loss /= len(train_loader)
 
         # set the model in evaluation mode
         model.eval()
-        test_loader = torch.utils.data.DataLoader(test_data, batch_size=hyperparameters.batch, collate_fn=collate_fn)
 
         # test procedure
-        test_metric = IntersectionOverUnion(task='multiclass', num_classes=2)
+        test_metric = IntersectionOverUnion(task="multiclass", num_classes=2)
         test_metric = test_metric.to(device)
-        
-        for i, batch in enumerate(tqdm(test_loader, desc='test ')):
+
+        for i, batch in enumerate(test_loader):
             x_test, test_label = batch
             x_test = list(image.to(device) for image in x_test)
             test_label = [{k: v.to(device) for k, v in l.items()} for l in test_label]
@@ -115,41 +165,112 @@ def train(hyperparameters: argparse.Namespace):
                 test_metric(*to_mask(test_predictions, test_label))
 
         # output the losses
-        print(f'Epoch {epoch}')
-        print(f'\tTrain loss: {train_loss}')
+        print(f"Epoch {epoch}")
+        print(f"\tTrain loss: {train_loss}")
         train_iou = train_metric.compute()
         test_iou = test_metric.compute()
-        print(f'\tTrain IoU:  {train_iou}')
-        print(f'\tTest IoU:   {test_iou}')
+        print(f"\tTrain IoU:  {train_iou}")
+        print(f"\tTest IoU:   {test_iou}")
 
         # log the metrics to wandb
-        wandb.log({"train_loss": train_loss, "train_iou": train_iou, "test_iou": test_iou})
+        wandb.log(
+            {"train_loss": train_loss, "train_iou": train_iou, "test_iou": test_iou}
+        )
 
         # save the model
+        if device == 0:
+            torch.save(model.state_dict(), f"{save_folder}/checkpoint_{epoch}.pt")
+            # torch.save(model.module.state_dict(), f"{save_folder}/checkpoint_{epoch}.pt")
+            # save the best performing model on disk
+            if test_iou > best_iou:
+                best_iou = test_iou
+                print("\tSaving better model\n")
+                torch.save(model.state_dict(), f"{save_folder}/checkpoint_best.pt")
+            else:
+                print("\n")
+    destroy_process_group()
 
-        torch.save(model.state_dict(), f'{save_folder}/checkpoint_{epoch}.pt')
 
-        # save the best performing model on disk
-        if test_iou > best_iou:
-            best_iou = test_iou
-            print('\tSaving better model\n')
-            torch.save(model.state_dict(), f'{save_folder}/checkpoint_best.pt')
-        else:
-            print('\n')
+def ddp_setup(rank, world_size):
+    """
+    Args:
+        rank: Unique identifier of each process
+        world_size: Total number of processes
+    """
+    os.environ["MASTER_ADDR"] = "localhost"
+    os.environ["MASTER_PORT"] = "12355"
+    init_process_group(backend="nccl", rank=rank, world_size=world_size)
+    torch.cuda.set_device(rank)
 
+def ddp_setup_torchrun():
+    init_process_group(backend="nccl")
+    torch.cuda.set_device(int(os.environ["LOCAL_RANK"]))
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('-b', '--batch', default=1, help='batch size', type=int)
-    parser.add_argument('-n', '--n_trainablebackbone', default=5, help='number of trainable backbone layers', type=int)
-    parser.add_argument('-p', '--split', default=0.8, help='train evaluation split', type=float)
+    parser.add_argument("-b", "--batch", default=1, help="batch size", type=int)
+    parser.add_argument(
+        "-n",
+        "--n_trainablebackbone",
+        default=5,
+        help="number of trainable backbone layers",
+        type=int,
+    )
+    parser.add_argument(
+        "-p", "--split", default=0.9, help="train evaluation split", type=float
+    )
     # parser.add_argument('-e', '--epochs', default=100, help='number of training epochs', type=int)
-    parser.add_argument('-e', '--epochs', default=10, help='number of training epochs', type=int)
-    parser.add_argument('-l', '--lr', default=1e-4, help='learning rate of the optimizer', type=float)
-    parser.add_argument('-s', '--seed', default=42, help='constant random seed for reproduction', type=int)
+    parser.add_argument(
+        "-e", "--epochs", default=10, help="number of training epochs", type=int
+    )
+    parser.add_argument(
+        "-l", "--lr", default=1e-4, help="learning rate of the optimizer", type=float
+    )
+    parser.add_argument(
+        "-s",
+        "--seed",
+        default=42,
+        help="constant random seed for reproduction",
+        type=int,
+    )
     # parser.add_argument('root', help='path to the data root', type=str)
-    parser.add_argument('--root', default='/hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/energy-train-data/', help='path to the data root', type=str)
-    parser.add_argument('--weight', default='DEFAULT', help='use pretrained weights', type=str)
-
+    parser.add_argument(
+        "--root",
+        default="/hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/energy-train-data/",
+        help="path to the data root",
+        type=str,
+    )
+    parser.add_argument(
+        "--weight", default="DEFAULT", help="use pretrained weights", type=str
+    )
+    parser.add_argument(
+        "--normalize", default=False, help="normalize the images", type=bool
+    )
+    parser.add_argument(
+        "--load", default=None, help="load a model from a checkpoint", type=str
+    )
+    parser.add_argument(
+        "--optimizer", default="adam", help="choose optimizer", type=str
+    )
+    parser.add_argument("--autocast", default=False, help="use autocast", type=bool)
+    parser.add_argument(
+        "--backbone", default="resnet50", help="choose backbone", type=str
+    )
+    # option to use grayscale
+    parser.add_argument("--grayscale", default=False, help="use grayscale", type=bool)
+    # parser.add_argument("--n_gpus", default=4, help="number of gpus", type=int)
     arguments = parser.parse_args()
+    # world_size = torch.cuda.device_count()
+    # set up wandb
+    wandb.init(entity="ibpt-ml", project="aihero-energy", config=arguments)
+    # wandb.config["world_size"] = world_size
+    arguments = wandb.config
+    
+    # log the hyperparameters
+    config_dict = dict(wandb.config)
+    for key in config_dict.keys():
+        print(f"{key}: {config_dict[key]}")
+    # set up multiprocessing
+    # mp.spawn(train, nprocs=4, args=(arguments,))
     train(arguments)
+    # train(arguments)
