@@ -5,13 +5,23 @@ import numpy as np
 import torch
 import torch.utils.data
 
+from torchvision.transforms import Normalize
+from torchvision.transforms.functional import rgb_to_grayscale
 from PIL import Image, ImageDraw
 
 
 class DroneImages(torch.utils.data.Dataset):
-    def __init__(self, root: str = 'data'):
+    def __init__(self, root: str = 'data', normalize: bool = False, grayscale: bool = False):
         self.root = pathlib.Path(root)
         self.parse_json(self.root / 'descriptor.json')
+        self.normalize = normalize
+        
+        self.grayscale = grayscale
+        if self.grayscale:
+            self.transform = Normalize(mean=[0.485, 0.456, 0.406],std=[0.229, 0.224, 0.225])
+        else:
+            self.transform = Normalize(mean=[0.485, 0.456, 0.406, 0.5, 0.5],std=[0.229, 0.224, 0.225, 0.225, 0.225])
+        
 
     def parse_json(self, path: pathlib.Path):
         """
@@ -79,4 +89,12 @@ class DroneImages(torch.utils.data.Dataset):
         x = torch.tensor(x, dtype=torch.float).permute((2, 0, 1))
         x = x / 255.
 
+        if self.grayscale:
+            if len(x.shape) == 3:
+                x = torch.vstack((rgb_to_grayscale(x[:3]), x[3:]))
+            else:
+                x= torch.stack((rgb_to_grayscale(x[:,:3]).squeeze(dim=1), x[:,3],x[:,4])).permute(1,0,2,3)
+        if self.normalize:
+            x = self.transform(x)
+            
         return x, y
