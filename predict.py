@@ -30,10 +30,6 @@ def collate_fn(batch) -> tuple:
 def predict(hyperparameters: argparse.Namespace):
     ddp_setup_torchrun()
     device = int(os.environ["LOCAL_RANK"])
-    # set fixed seeds for reproducible execution
-    random.seed(hyperparameters.seed)
-    np.random.seed(hyperparameters.seed)
-    torch.manual_seed(hyperparameters.seed)
 
     # if in grayscale mode
     if hyperparameters.grayscale:
@@ -64,7 +60,7 @@ def predict(hyperparameters: argparse.Namespace):
     # model = DistributedDataParallel(model, device_ids=[device])
     # set the model in evaluation mode
     model.eval()
-    test_loader = torch.utils.data.DataLoader(test_data, batch_size=hyperparameters.batch, num_workers=2, pin_memory=True, sampler=test_sampler, collate_fn=collate_fn)
+    test_loader = torch.utils.data.DataLoader(test_data, batch_size=hyperparameters.batch, pin_memory=True, sampler=test_sampler, collate_fn=collate_fn)
 
     # test procedure
     test_metric = IntersectionOverUnion(task='multiclass', num_classes=2)
@@ -88,7 +84,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument("-b", "--batch", default=1, help="batch size", type=int)
     parser.add_argument('-m', '--model', default='checkpoint.pt', help='model checkpoint', type=str)
-    parser.add_argument('-s', '--seed', default=42, help='constant random seed for reproduction', type=int)
     parser.add_argument(
         "root",
         default="/hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/energy-train-data/",
