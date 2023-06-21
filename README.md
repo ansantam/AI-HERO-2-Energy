@@ -4,7 +4,7 @@
 - Our path: `/hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy`
 - Our environment: `production_env`
 - Our weights: https://zenodo.org/record/8064023
-- Slides:
+- Slides: https://github.com/ansantam/AI-HERO-2-Energy/blob/main/slides/ai-hero-2023-E4.pdf
 
 This is the complete source code for the AI HERO Hackathon 2 (2023) for the Use Case Energy. The task is to segment thermal bridge instances, i.e. weak points in building envelopes that leak thermal energy, in fly-over drone images.
 
