@@ -133,7 +133,7 @@ dmypy.json
 .pyre/
 
 # virtual environment
-energy_env/
+*_env/
 *-train-data/
 # model
 wandb/
