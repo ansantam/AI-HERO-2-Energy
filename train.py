@@ -25,16 +25,15 @@ def collate_fn(batch) -> tuple:
     return tuple(zip(*batch))
 
 
-def get_device() -> torch.device:
-    return torch.device("cuda" if torch.cuda.is_available() else "cpu")
+# def get_device() -> torch.device:
+#     return torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 def train(hyperparameters: argparse.Namespace):
+    ddp_setup_torchrun()
     device = int(os.environ["LOCAL_RANK"])
     # ddp_setup(rank, world_size)
-    ddp_setup_torchrun()
     # initialize wandb
-
     hyperparameters = wandb.config
 
     # create a folder to save the model
@@ -59,7 +58,7 @@ def train(hyperparameters: argparse.Namespace):
         n_channels = 5
 
     # set up the dataset
-    drone_images = DroneImages(hyperparameters.root, grayscale=hyperparameters.grayscale)
+    drone_images = DroneImages(hyperparameters.root, grayscale=hyperparameters.grayscale, normalize=hyperparameters.normalize)
     train_data, test_data = torch.utils.data.random_split(
         drone_images, [hyperparameters.split, 1 - hyperparameters.split]
     )
@@ -72,6 +71,7 @@ def train(hyperparameters: argparse.Namespace):
         trainable_backbone_layers=hyperparameters.n_trainablebackbone,
         weights=hyperparameters.weight,
         in_channels=n_channels,
+        backbone=hyperparameters.backbone,
     )
     # load model checkpoint if available
     if hyperparameters.load:
@@ -79,7 +79,7 @@ def train(hyperparameters: argparse.Namespace):
         model.load_state_dict(torch.load(hyperparameters.load))
     
     model.to(device)
-    model = DistributedDataParallel(model)
+    model = DistributedDataParallel(model, device_ids=[device])
 
     # set up optimization procedure
     if hyperparameters.optimizer == "adam":
@@ -93,13 +93,16 @@ def train(hyperparameters: argparse.Namespace):
     best_iou = 0.0
 
     # set up mixed precision training
-    scaler = GradScaler()
+    if hyperparameters.autocast:
+        scaler = GradScaler()
 
     # set up data loaders
     train_loader = torch.utils.data.DataLoader(
         train_data,
         sampler=train_sampler,
         batch_size=hyperparameters.batch,
+        # num_workers=1,
+        pin_memory=True,
         # shuffle=True,
         drop_last=True,
         collate_fn=collate_fn,
@@ -107,6 +110,8 @@ def train(hyperparameters: argparse.Namespace):
     test_loader = torch.utils.data.DataLoader(
         test_data,
         batch_size=hyperparameters.batch,
+        # num_workers=2,
+        pin_memory=True,
         sampler=test_sampler,
         collate_fn=collate_fn,
     )
@@ -124,16 +129,17 @@ def train(hyperparameters: argparse.Namespace):
         train_sampler.set_epoch(epoch)
         for i, batch in enumerate(train_loader):
             x, label = batch
-            x = list(image.to(device) for image in x)
-            label = [{k: v.to(device) for k, v in l.items()} for l in label]
+            x = list(image.to(device, non_blocking=True) for image in x)
+            label = [{k: v.to(device, non_blocking=True) for k, v in l.items()} for l in label]
             model.zero_grad()
             with autocast(enabled=hyperparameters.autocast, dtype=torch.float16):
                 losses = model(x, label)
                 loss = sum(l for l in losses.values())
 
-            scaler.scale(loss).backward()
-            scaler.step(optimizer)
-            scaler.update()
+            if hyperparameters.autocast:
+                scaler.scale(loss).backward()
+                scaler.step(optimizer)
+                scaler.update()
             # loss.backward()
             # optimizer.step()
             train_loss += loss.item()
@@ -164,13 +170,14 @@ def train(hyperparameters: argparse.Namespace):
                 test_predictions = model(x_test)
                 test_metric(*to_mask(test_predictions, test_label))
 
-        # output the losses
-        print(f"Epoch {epoch}")
-        print(f"\tTrain loss: {train_loss}")
         train_iou = train_metric.compute()
         test_iou = test_metric.compute()
-        print(f"\tTrain IoU:  {train_iou}")
-        print(f"\tTest IoU:   {test_iou}")
+        # output the losses
+        if device == 0:
+            print(f"Epoch {epoch}")
+            print(f"\tTrain IoU:  {train_iou}")
+            print(f"\tTest IoU:   {test_iou}")
+        print(f"\t GPU:{device} \tTrain loss: {train_loss}")
 
         # log the metrics to wandb
         wandb.log(
@@ -180,6 +187,11 @@ def train(hyperparameters: argparse.Namespace):
         # save the model
         if device == 0:
             torch.save(model.state_dict(), f"{save_folder}/checkpoint_{epoch}.pt")
+            torch.save({
+            'epoch': epoch,
+            'model_state_dict': model.state_dict(),
+            'optimizer_state_dict': optimizer.state_dict(),
+            }, f"{save_folder}/training_ckp_{epoch}.pt")
             # torch.save(model.module.state_dict(), f"{save_folder}/checkpoint_{epoch}.pt")
             # save the best performing model on disk
             if test_iou > best_iou:
@@ -191,20 +203,21 @@ def train(hyperparameters: argparse.Namespace):
     destroy_process_group()
 
 
-def ddp_setup(rank, world_size):
-    """
-    Args:
-        rank: Unique identifier of each process
-        world_size: Total number of processes
-    """
-    os.environ["MASTER_ADDR"] = "localhost"
-    os.environ["MASTER_PORT"] = "12355"
-    init_process_group(backend="nccl", rank=rank, world_size=world_size)
-    torch.cuda.set_device(rank)
+# def ddp_setup(rank, world_size):
+#     """
+#     Args:
+#         rank: Unique identifier of each process
+#         world_size: Total number of processes
+#     """
+#     os.environ["MASTER_ADDR"] = "localhost"
+#     os.environ["MASTER_PORT"] = "12355"
+#     init_process_group(backend="nccl", rank=rank, world_size=world_size)
+#     torch.cuda.set_device(rank)
 
 def ddp_setup_torchrun():
-    init_process_group(backend="nccl")
     torch.cuda.set_device(int(os.environ["LOCAL_RANK"]))
+    init_process_group(backend="nccl")
+    
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -260,7 +273,10 @@ if __name__ == "__main__":
     parser.add_argument("--grayscale", default=False, help="use grayscale", type=bool)
     # parser.add_argument("--n_gpus", default=4, help="number of gpus", type=int)
     arguments = parser.parse_args()
-    # world_size = torch.cuda.device_count()
+
+    # truly random seed
+    if arguments.seed == -1:
+        arguments.seed = random.randint(0, 100000)
     # set up wandb
     wandb.init(entity="ibpt-ml", project="aihero-energy", config=arguments)
     # wandb.config["world_size"] = world_size
