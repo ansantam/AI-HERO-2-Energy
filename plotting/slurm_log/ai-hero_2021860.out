@@ -1,0 +1,187 @@
+
+Lmod is automatically replacing "compiler/intel/19.1" with "compiler/gnu/11".
+
+
+The following have been reloaded with a version change:
+  1) mpi/openmpi/4.0 => mpi/openmpi/4.1
+
+
+The following have been reloaded with a version change:
+  1) mpi/openmpi/4.1 => mpi/openmpi/4.0
+
+wandb: Currently logged in as: crxu (ibpt-ml). Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.15.4
+wandb: Run data is saved locally in /hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/wandb/run-20230619_194449-c16kkxsu
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run wandering-serenity-27
+wandb: ⭐️ View project at https://wandb.ai/ibpt-ml/aihero-energy
+wandb: 🚀 View run at https://wandb.ai/ibpt-ml/aihero-energy/runs/c16kkxsu
+batch: 2
+n_trainablebackbone: 3
+split: 0.9
+epochs: 20
+lr: 0.001
+seed: 42
+root: /hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/energy-train-data/
+weight: DEFAULT
+normalize: True
+load: /hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/models/eternal-wildflower-10/checkpoint_best.pt
+optimizer: adam
+autocast: True
+Training on cuda
+Restoring model checkpoint from /hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/models/eternal-wildflower-10/checkpoint_best.pt
+Epoch 0
+	Train loss: 1.7501214532668774
+	Train IoU:  0.47691068053245544
+	Test IoU:   0.5958170294761658
+	Saving better model
+
+Epoch 1
+	Train loss: 1.5265566072097192
+	Train IoU:  0.4961548447608948
+	Test IoU:   0.5555140972137451
+
+
+Epoch 2
+	Train loss: 1.3711694875130287
+	Train IoU:  0.49143630266189575
+	Test IoU:   0.5764449834823608
+
+
+Epoch 3
+	Train loss: 1.2794279920137845
+	Train IoU:  0.4858975410461426
+	Test IoU:   0.4831199049949646
+
+
+Epoch 4
+	Train loss: 1.2335519400009742
+	Train IoU:  0.4879823923110962
+	Test IoU:   0.5036351680755615
+
+
+Epoch 5
+	Train loss: 1.1760452796862675
+	Train IoU:  0.4901675581932068
+	Test IoU:   0.4941444396972656
+
+
+Epoch 6
+	Train loss: 1.134279913352086
+	Train IoU:  0.47968167066574097
+	Test IoU:   0.5544947981834412
+
+
+Epoch 7
+	Train loss: 1.0848106985825758
+	Train IoU:  0.4925464689731598
+	Test IoU:   0.5491224527359009
+
+
+Epoch 8
+	Train loss: 1.048928652359889
+	Train IoU:  0.5191996097564697
+	Test IoU:   0.47438371181488037
+
+
+Epoch 9
+	Train loss: 1.032503953897036
+	Train IoU:  0.4972417950630188
+	Test IoU:   0.5353800058364868
+
+
+Epoch 10
+	Train loss: 1.0128388922948104
+	Train IoU:  0.5296663045883179
+	Test IoU:   0.601249098777771
+	Saving better model
+
+Epoch 11
+	Train loss: 1.041539764404297
+	Train IoU:  0.5118640065193176
+	Test IoU:   0.5869209170341492
+
+
+Epoch 12
+	Train loss: 0.9816061013478499
+	Train IoU:  0.5387046337127686
+	Test IoU:   0.5288049578666687
+
+
+Epoch 13
+	Train loss: 0.9872415003409752
+	Train IoU:  0.5259332060813904
+	Test IoU:   0.46212470531463623
+
+
+Epoch 14
+	Train loss: 0.9544307543681219
+	Train IoU:  0.5411313772201538
+	Test IoU:   0.4812624454498291
+
+
+Epoch 15
+	Train loss: 0.9313910749325386
+	Train IoU:  0.5542072057723999
+	Test IoU:   0.5088781118392944
+
+
+Epoch 16
+	Train loss: 0.9273077769462879
+	Train IoU:  0.5564420223236084
+	Test IoU:   0.5789861083030701
+
+
+Epoch 17
+	Train loss: 0.9161868012868442
+	Train IoU:  0.5684866309165955
+	Test IoU:   0.5084606409072876
+
+
+Epoch 18
+	Train loss: 0.8951069993239182
+	Train IoU:  0.5633930563926697
+	Test IoU:   0.5736268758773804
+
+
+Epoch 19
+	Train loss: 0.885945446399542
+	Train IoU:  0.5759642124176025
+	Test IoU:   0.5561952590942383
+
+
+wandb: Waiting for W&B process to finish... (success).
+wandb: - 0.033 MB of 0.033 MB uploaded (0.007 MB deduped)wandb: \ 0.033 MB of 0.033 MB uploaded (0.007 MB deduped)wandb: | 0.033 MB of 0.033 MB uploaded (0.007 MB deduped)wandb: / 0.033 MB of 0.033 MB uploaded (0.007 MB deduped)wandb: - 0.033 MB of 0.033 MB uploaded (0.007 MB deduped)wandb: 
+wandb: Run history:
+wandb:   test_iou █▆▇▂▃▃▆▅▂▅█▇▄▁▂▃▇▃▇▆
+wandb:  train_iou ▁▂▂▂▂▂▁▂▄▂▅▃▅▄▆▆▇▇▇█
+wandb: train_loss █▆▅▄▄▃▃▃▂▂▂▂▂▂▂▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:   test_iou 0.5562
+wandb:  train_iou 0.57596
+wandb: train_loss 0.88595
+wandb: 
+wandb: 🚀 View run wandering-serenity-27 at: https://wandb.ai/ibpt-ml/aihero-energy/runs/c16kkxsu
+wandb: Synced 6 W&B file(s), 0 media file(s), 3 artifact file(s) and 1 other file(s)
+wandb: Find logs at: ./wandb/run-20230619_194449-c16kkxsu/logs
+
+============================= JOB FEEDBACK =============================
+
+Job ID: 2021860
+Cluster: hk
+User/Group: ow7680/hk-project-test-aihero2
+State: COMPLETED (exit code 0)
+Partition: accelerated
+Nodes: 1
+Cores per node: 152
+Nodelist: hkn0525
+CPU Utilized: 01:18:08
+CPU Efficiency: 0.68% of 7-23:26:08 core-walltime
+Job Wall-clock time: 01:15:34
+Starttime: Mon Jun 19 19:44:22 2023
+Endtime: Mon Jun 19 20:59:56 2023
+Memory Utilized: 5.04 GB
+Memory Efficiency: 0.00% of 0.00 MB
+Energy Consumed: 2869602 Joule / 797.111666666667 Watthours
+Average node power draw: 632.907366563741 Watt

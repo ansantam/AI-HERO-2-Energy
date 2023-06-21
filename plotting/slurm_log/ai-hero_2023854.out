@@ -1,0 +1,392 @@
+
+Lmod is automatically replacing "compiler/intel/19.1" with "compiler/gnu/11".
+
+
+The following have been reloaded with a version change:
+  1) mpi/openmpi/4.0 => mpi/openmpi/4.1
+
+
+The following have been reloaded with a version change:
+  1) mpi/openmpi/4.1 => mpi/openmpi/4.0
+
+wandb: Currently logged in as: crxu (ibpt-ml). Use `wandb login --relogin` to force relogin
+wandb: Currently logged in as: crxu (ibpt-ml). Use `wandb login --relogin` to force relogin
+wandb: Currently logged in as: crxu (ibpt-ml). Use `wandb login --relogin` to force relogin
+wandb: Currently logged in as: crxu (ibpt-ml). Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.15.4
+wandb: Run data is saved locally in /hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/wandb/run-20230620_183336-aoahxv0o
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Tracking run with wandb version 0.15.4
+wandb: Run data is saved locally in /hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/wandb/run-20230620_183336-940s0b91
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run vital-dream-120
+wandb: ⭐️ View project at https://wandb.ai/ibpt-ml/aihero-energy
+wandb: 🚀 View run at https://wandb.ai/ibpt-ml/aihero-energy/runs/aoahxv0o
+wandb: Tracking run with wandb version 0.15.4
+wandb: Run data is saved locally in /hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/wandb/run-20230620_183336-pgje9ul8
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run glad-tree-121
+wandb: ⭐️ View project at https://wandb.ai/ibpt-ml/aihero-energy
+wandb: 🚀 View run at https://wandb.ai/ibpt-ml/aihero-energy/runs/940s0b91
+wandb: Syncing run tough-disco-119
+wandb: ⭐️ View project at https://wandb.ai/ibpt-ml/aihero-energy
+wandb: 🚀 View run at https://wandb.ai/ibpt-ml/aihero-energy/runs/pgje9ul8
+batch: 2
+n_trainablebackbone: 3
+split: 0.9
+epochs: 20
+lr: 0.0001
+seed: 1
+root: /hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/energy-train-data/
+weight: DEFAULT
+normalize: True
+load: None
+optimizer: adam
+autocast: True
+backbone: resnet50
+grayscale: True
+batch: 2
+n_trainablebackbone: 3
+split: 0.9
+epochs: 20
+lr: 0.0001
+seed: 1
+root: /hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/energy-train-data/
+weight: DEFAULT
+normalize: True
+load: None
+optimizer: adam
+autocast: True
+backbone: resnet50
+grayscale: True
+batch: 2
+n_trainablebackbone: 3
+split: 0.9
+epochs: 20
+lr: 0.0001
+seed: 1
+root: /hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/energy-train-data/
+weight: DEFAULT
+normalize: True
+load: None
+optimizer: adam
+autocast: True
+backbone: resnet50
+grayscale: True
+wandb: Tracking run with wandb version 0.15.4
+wandb: Run data is saved locally in /hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/wandb/run-20230620_183336-951je6yq
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run unique-dawn-120
+wandb: ⭐️ View project at https://wandb.ai/ibpt-ml/aihero-energy
+wandb: 🚀 View run at https://wandb.ai/ibpt-ml/aihero-energy/runs/951je6yq
+batch: 2
+n_trainablebackbone: 3
+split: 0.9
+epochs: 20
+lr: 0.0001
+seed: 1
+root: /hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/energy-train-data/
+weight: DEFAULT
+normalize: True
+load: None
+optimizer: adam
+autocast: True
+backbone: resnet50
+grayscale: True
+Training on gpu:3Training on gpu:0
+
+Training on gpu:1
+Training on gpu:2
+	 GPU:1 	Train loss: 2.2526321823214306	 GPU:2 	Train loss: 2.235040096589077
+
+Epoch 0
+	Train IoU:  0.43911588191986084
+	Test IoU:   0.513261079788208
+	 GPU:0 	Train loss: 2.281933824221293
+	 GPU:3 	Train loss: 2.2420855466230414
+	Saving better model
+
+	 GPU:3 	Train loss: 1.4425711572906117
+	 GPU:1 	Train loss: 1.4953441906858373
+Epoch 1
+	Train IoU:  0.4722599983215332
+	Test IoU:   0.5395391583442688
+	 GPU:0 	Train loss: 1.461955194120054
+	 GPU:2 	Train loss: 1.4389896510559836
+	Saving better model
+
+	 GPU:3 	Train loss: 1.3006192408962014	 GPU:1 	Train loss: 1.2845178820468761
+
+	 GPU:2 	Train loss: 1.2502968701315516Epoch 2
+
+	Train IoU:  0.4794110059738159
+	Test IoU:   0.4859510660171509
+	 GPU:0 	Train loss: 1.2707774469881883
+
+
+	 GPU:3 	Train loss: 1.1441951504460088	 GPU:1 	Train loss: 1.1932490158964086
+
+	 GPU:2 	Train loss: 1.1598732044667373
+Epoch 3
+	Train IoU:  0.48881494998931885
+	Test IoU:   0.4771310091018677
+	 GPU:0 	Train loss: 1.1468427424077634
+
+
+	 GPU:3 	Train loss: 1.0921948397601093	 GPU:1 	Train loss: 1.100007125624904
+
+	 GPU:2 	Train loss: 1.1071455118096905
+Epoch 4
+	Train IoU:  0.4840250313282013
+	Test IoU:   0.4809615910053253
+	 GPU:0 	Train loss: 1.0932099451253443
+
+
+	 GPU:3 	Train loss: 1.037931325259032	 GPU:1 	Train loss: 1.014308327510033
+
+	 GPU:2 	Train loss: 1.090276022752126
+Epoch 5
+	Train IoU:  0.5131804943084717
+	Test IoU:   0.49249690771102905
+	 GPU:0 	Train loss: 1.0539886833708962
+
+
+	 GPU:3 	Train loss: 0.9997744990719689
+Epoch 6
+	 GPU:2 	Train loss: 1.060683630130909
+	 GPU:1 	Train loss: 1.0075961226298484
+	Train IoU:  0.530310869216919
+	Test IoU:   0.5269894599914551
+	 GPU:0 	Train loss: 0.9902536949993651
+
+
+	 GPU:2 	Train loss: 1.0015208117755843	 GPU:3 	Train loss: 0.9742281745981287
+
+	 GPU:1 	Train loss: 0.9574156142311332
+Epoch 7
+	Train IoU:  0.5592235326766968
+	Test IoU:   0.5172855257987976
+	 GPU:0 	Train loss: 1.00009067191018
+
+
+	 GPU:3 	Train loss: 0.986215184500188Epoch 8
+
+	 GPU:2 	Train loss: 0.9857039054234823
+	Train IoU:  0.5679810643196106
+	Test IoU:   0.5863430500030518
+	 GPU:0 	Train loss: 0.9148207913946222	 GPU:1 	Train loss: 0.9349715614024504
+
+	Saving better model
+
+	 GPU:3 	Train loss: 0.9051600495974222Epoch 9
+
+	 GPU:2 	Train loss: 0.9437737910099971
+	 GPU:1 	Train loss: 0.9176250118532299
+	Train IoU:  0.5948305130004883
+	Test IoU:   0.5530719757080078
+	 GPU:0 	Train loss: 0.9399033111554606
+
+
+	 GPU:1 	Train loss: 0.9345119856757882Epoch 10
+
+	Train IoU:  0.6096020340919495
+	Test IoU:   0.5476685166358948
+	 GPU:0 	Train loss: 0.8994672614851116
+	 GPU:2 	Train loss: 0.9138651534363076
+	 GPU:3 	Train loss: 0.8431202239460416
+
+
+	 GPU:1 	Train loss: 0.8994815489392222	 GPU:2 	Train loss: 0.8037208859567289
+
+Epoch 11
+	Train IoU:  0.6178299784660339
+	Test IoU:   0.5701925754547119
+	 GPU:0 	Train loss: 0.9107457973338939
+	 GPU:3 	Train loss: 0.8532898470207497
+
+
+	 GPU:1 	Train loss: 0.8562539948357476
+	 GPU:2 	Train loss: 0.8262769947817297
+Epoch 12
+	Train IoU:  0.623438835144043	 GPU:3 	Train loss: 0.8551336151582224
+
+	Test IoU:   0.5964952707290649
+	 GPU:0 	Train loss: 0.8112089104122586
+	Saving better model
+
+Epoch 13	 GPU:2 	Train loss: 0.8563307015984146
+
+	Train IoU:  0.6361066699028015
+	Test IoU:   0.5787782073020935
+	 GPU:0 	Train loss: 0.806683968246719
+	 GPU:1 	Train loss: 0.804213199350569
+	 GPU:3 	Train loss: 0.798652720304183
+
+
+	 GPU:2 	Train loss: 0.8175666306489779	 GPU:3 	Train loss: 0.7676663049209265
+
+	 GPU:1 	Train loss: 0.7437356692037465
+Epoch 14
+	Train IoU:  0.6667063236236572
+	Test IoU:   0.597383439540863
+	 GPU:0 	Train loss: 0.7805333928561505
+	Saving better model
+
+	 GPU:1 	Train loss: 0.7257848492375126	 GPU:3 	Train loss: 0.7929367621739706
+
+Epoch 15
+	Train IoU:  0.6657161116600037
+	Test IoU:   0.5876803398132324
+	 GPU:0 	Train loss: 0.7449098825454712
+	 GPU:2 	Train loss: 0.7596654432055391
+
+
+	 GPU:2 	Train loss: 0.7333253452807297	 GPU:1 	Train loss: 0.7492331560747123
+
+Epoch 16
+	 GPU:3 	Train loss: 0.7156762876260427
+	Train IoU:  0.6619242429733276
+	Test IoU:   0.6180596351623535
+	 GPU:0 	Train loss: 0.7251763702542694
+	Saving better model
+
+	 GPU:2 	Train loss: 0.704518876509902	 GPU:3 	Train loss: 0.6935490884898622
+Epoch 17
+
+	Train IoU:  0.690189003944397
+	 GPU:1 	Train loss: 0.7054293115197876	Test IoU:   0.6122592687606812
+
+	 GPU:0 	Train loss: 0.7067475878162148
+
+
+	 GPU:1 	Train loss: 0.6574175324704912	 GPU:2 	Train loss: 0.7130426834394903
+
+	 GPU:3 	Train loss: 0.6911931608194186
+Epoch 18
+	Train IoU:  0.6851863265037537
+	Test IoU:   0.642375111579895
+	 GPU:0 	Train loss: 0.6747892933127321
+	Saving better model
+
+Epoch 19	 GPU:2 	Train loss: 0.6521167423990037
+
+	 GPU:3 	Train loss: 0.6788582148743264
+	 GPU:1 	Train loss: 0.6937350827602693
+	Train IoU:  0.6962194442749023
+	Test IoU:   0.6341480612754822
+	 GPU:0 	Train loss: 0.6659109511493165
+wandb: Waiting for W&B process to finish... (success).
+wandb: Waiting for W&B process to finish... (success).
+wandb: Waiting for W&B process to finish... (success).
+
+
+wandb: Waiting for W&B process to finish... (success).
+wandb: - 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: - 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: - 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: \ 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: \ 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: \ 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: - 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: | 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: | 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: | 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: \ 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: / 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: / 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: / 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: | 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: - 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: - 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: - 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: / 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: \ 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: \ 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: \ 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: - 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: | 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: | 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: | 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: / 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: 
+wandb: Run history:
+wandb:   test_iou ▃▄▁▁▁▂▃▃▆▄▄▅▆▅▆▆▇▇██
+wandb:  train_iou ▁▂▂▂▂▃▃▄▅▅▆▆▆▆▇▇▇███
+wandb: train_loss █▅▄▃▃▃▃▂▂▂▂▂▂▂▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:   test_iou 0.63415
+wandb:  train_iou 0.69622
+wandb: train_loss 0.69374
+wandb: 
+wandb: 🚀 View run tough-disco-119 at: https://wandb.ai/ibpt-ml/aihero-energy/runs/pgje9ul8
+wandb: Synced 6 W&B file(s), 0 media file(s), 3 artifact file(s) and 2 other file(s)
+wandb: Find logs at: ./wandb/run-20230620_183336-pgje9ul8/logs
+wandb: \ 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: / 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: 
+wandb: Run history:
+wandb:   test_iou ▃▄▁▁▁▂▃▃▆▄▄▅▆▅▆▆▇▇██
+wandb:  train_iou ▁▂▂▂▂▃▃▄▅▅▆▆▆▆▇▇▇███
+wandb: train_loss █▄▄▃▃▃▃▃▂▂▂▂▂▂▂▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:   test_iou 0.63415
+wandb:  train_iou 0.69622
+wandb: train_loss 0.65212
+wandb: 
+wandb: 🚀 View run vital-dream-120 at: https://wandb.ai/ibpt-ml/aihero-energy/runs/aoahxv0o
+wandb: Synced 6 W&B file(s), 0 media file(s), 3 artifact file(s) and 2 other file(s)
+wandb: Find logs at: ./wandb/run-20230620_183336-aoahxv0o/logs
+wandb: / 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: - 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: 
+wandb: Run history:
+wandb:   test_iou ▃▄▁▁▁▂▃▃▆▄▄▅▆▅▆▆▇▇██
+wandb:  train_iou ▁▂▂▂▂▃▃▄▅▅▆▆▆▆▇▇▇███
+wandb: train_loss █▄▄▃▃▃▂▂▂▂▂▂▂▂▁▂▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:   test_iou 0.63415
+wandb:  train_iou 0.69622
+wandb: train_loss 0.67886
+wandb: 
+wandb: 🚀 View run unique-dawn-120 at: https://wandb.ai/ibpt-ml/aihero-energy/runs/951je6yq
+wandb: Synced 6 W&B file(s), 0 media file(s), 3 artifact file(s) and 2 other file(s)
+wandb: Find logs at: ./wandb/run-20230620_183336-951je6yq/logs
+wandb: | 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: / 0.052 MB of 0.052 MB uploaded (0.009 MB deduped)
+wandb: 
+wandb: Run history:
+wandb:   test_iou ▃▄▁▁▁▂▃▃▆▄▄▅▆▅▆▆▇▇██
+wandb:  train_iou ▁▂▂▂▂▃▃▄▅▅▆▆▆▆▇▇▇███
+wandb: train_loss █▄▄▃▃▃▂▂▂▂▂▂▂▂▁▁▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:   test_iou 0.63415
+wandb:  train_iou 0.69622
+wandb: train_loss 0.66591
+wandb: 
+wandb: 🚀 View run glad-tree-121 at: https://wandb.ai/ibpt-ml/aihero-energy/runs/940s0b91
+wandb: Synced 6 W&B file(s), 0 media file(s), 3 artifact file(s) and 2 other file(s)
+wandb: Find logs at: ./wandb/run-20230620_183336-940s0b91/logs
+
+============================= JOB FEEDBACK =============================
+
+Job ID: 2023854
+Cluster: hk
+User/Group: ow7680/hk-project-test-aihero2
+State: COMPLETED (exit code 0)
+Partition: accelerated
+Nodes: 1
+Cores per node: 152
+Nodelist: hkn0506
+CPU Utilized: 03:05:43
+CPU Efficiency: 1.30% of 9-22:10:32 core-walltime
+Job Wall-clock time: 01:34:01
+Starttime: Tue Jun 20 18:32:58 2023
+Endtime: Tue Jun 20 20:06:59 2023
+Memory Utilized: 19.87 GB
+Memory Efficiency: 0.00% of 0.00 MB
+Energy Consumed: 3827207 Joule / 1063.11305555556 Watthours
+Average node power draw: 678.462506647757 Watt

@@ -1,0 +1,473 @@
+
+Lmod is automatically replacing "compiler/intel/19.1" with "compiler/gnu/11".
+
+
+The following have been reloaded with a version change:
+  1) mpi/openmpi/4.0 => mpi/openmpi/4.1
+
+
+The following have been reloaded with a version change:
+  1) mpi/openmpi/4.1 => mpi/openmpi/4.0
+
+wandb: Currently logged in as: crxu (ibpt-ml). Use `wandb login --relogin` to force relogin
+wandb: Currently logged in as: crxu (ibpt-ml). Use `wandb login --relogin` to force relogin
+wandb: Currently logged in as: crxu (ibpt-ml). Use `wandb login --relogin` to force relogin
+wandb: Currently logged in as: crxu (ibpt-ml). Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.15.4
+wandb: Run data is saved locally in /hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/wandb/run-20230621_103800-aqzuqi0y
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run clear-armadillo-166
+wandb: ⭐️ View project at https://wandb.ai/ibpt-ml/aihero-energy
+wandb: 🚀 View run at https://wandb.ai/ibpt-ml/aihero-energy/runs/aqzuqi0y
+wandb: Tracking run with wandb version 0.15.4
+wandb: Run data is saved locally in /hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/wandb/run-20230621_103800-gf6ougix
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run volcanic-bush-168
+wandb: ⭐️ View project at https://wandb.ai/ibpt-ml/aihero-energy
+wandb: 🚀 View run at https://wandb.ai/ibpt-ml/aihero-energy/runs/gf6ougix
+batch: 2
+n_trainablebackbone: 3
+split: 0.9
+epochs: 40
+lr: 0.0001
+seed: 21451
+root: /hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/energy-train-data/
+weight: DEFAULT
+normalize: True
+load: None
+optimizer: adam
+autocast: True
+backbone: resnet18
+grayscale: True
+batch: 2
+n_trainablebackbone: 3
+split: 0.9
+epochs: 40
+lr: 0.0001
+seed: 74852
+root: /hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/energy-train-data/
+weight: DEFAULT
+normalize: True
+load: None
+optimizer: adam
+autocast: True
+backbone: resnet18
+grayscale: True
+wandb: Tracking run with wandb version 0.15.4
+wandb: Run data is saved locally in /hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/wandb/run-20230621_103800-k2gqwf4h
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run morning-meadow-168
+wandb: ⭐️ View project at https://wandb.ai/ibpt-ml/aihero-energy
+wandb: 🚀 View run at https://wandb.ai/ibpt-ml/aihero-energy/runs/k2gqwf4h
+batch: 2
+n_trainablebackbone: 3
+split: 0.9
+epochs: 40
+lr: 0.0001
+seed: 79936
+root: /hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/energy-train-data/
+weight: DEFAULT
+normalize: True
+load: None
+optimizer: adam
+autocast: True
+backbone: resnet18
+grayscale: True
+wandb: Tracking run with wandb version 0.15.4
+wandb: Run data is saved locally in /hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/wandb/run-20230621_103800-0snqscq4
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run charmed-dream-167
+wandb: ⭐️ View project at https://wandb.ai/ibpt-ml/aihero-energy
+wandb: 🚀 View run at https://wandb.ai/ibpt-ml/aihero-energy/runs/0snqscq4
+batch: 2
+n_trainablebackbone: 3
+split: 0.9
+epochs: 40
+lr: 0.0001
+seed: 59491
+root: /hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/energy-train-data/
+weight: DEFAULT
+normalize: True
+load: None
+optimizer: adam
+autocast: True
+backbone: resnet18
+grayscale: True
+Training on gpu:3Training on gpu:0
+
+Training on gpu:1
+Training on gpu:2
+	 GPU:3 	Train loss: 1.8246605410987948	 GPU:2 	Train loss: 1.8939463562435574Epoch 0	 GPU:1 	Train loss: 1.8366931779884998
+
+	Train IoU:  0.46815717220306396
+	Test IoU:   0.4363980293273926
+	 GPU:0 	Train loss: 1.8761513770362477
+
+
+	Saving better model
+
+	 GPU:1 	Train loss: 1.319295201772525Epoch 1
+
+	Train IoU:  0.49293941259384155
+	Test IoU:   0.4962426424026489
+	 GPU:0 	Train loss: 1.3157113326920404
+	 GPU:2 	Train loss: 1.3216145399176045	 GPU:3 	Train loss: 1.2700377761581798
+
+	Saving better model
+
+	 GPU:2 	Train loss: 1.1429651077882743	 GPU:3 	Train loss: 1.19632551110821Epoch 2
+
+	Train IoU:  0.5005317330360413
+	Test IoU:   0.5013887882232666
+	 GPU:0 	Train loss: 1.1595630439711206
+	 GPU:1 	Train loss: 1.1580755173424144
+
+	Saving better model
+
+	 GPU:1 	Train loss: 1.1243221855457919
+	 GPU:2 	Train loss: 1.15441221145936
+Epoch 3
+	Train IoU:  0.5181554555892944
+	Test IoU:   0.5150339603424072
+	 GPU:0 	Train loss: 1.1038629898318537
+	 GPU:3 	Train loss: 1.149772869951931
+	Saving better model
+
+	 GPU:3 	Train loss: 1.0900238538965767	 GPU:1 	Train loss: 1.1059153072627974
+
+	 GPU:2 	Train loss: 1.1180973332605244
+Epoch 4
+	Train IoU:  0.5358428359031677
+	Test IoU:   0.5506503582000732
+	 GPU:0 	Train loss: 1.1081712536605788
+	Saving better model
+
+Epoch 5	 GPU:1 	Train loss: 1.0824184601689562
+
+	 GPU:3 	Train loss: 1.079254357903092
+	 GPU:2 	Train loss: 1.0794638770597953
+	Train IoU:  0.5662313103675842
+	Test IoU:   0.5187958478927612
+	 GPU:0 	Train loss: 1.0620553272741813
+
+
+	 GPU:2 	Train loss: 1.0056146007997018	 GPU:3 	Train loss: 1.046181039309796
+
+Epoch 6
+	Train IoU:  0.5788701176643372
+	Test IoU:   0.5769506692886353
+	 GPU:0 	Train loss: 1.029661194409853
+	 GPU:1 	Train loss: 1.0313664542304144
+	Saving better model
+
+Epoch 7	 GPU:3 	Train loss: 0.9384386072188248
+
+	 GPU:1 	Train loss: 1.004109173277278
+	Train IoU:  0.6006813645362854
+	Test IoU:   0.6059350371360779	 GPU:2 	Train loss: 1.0272807460508229
+	 GPU:0 	Train loss: 1.0058046027466103
+
+	Saving better model
+
+	 GPU:1 	Train loss: 1.00168682579641	 GPU:2 	Train loss: 0.9411656613703128
+
+Epoch 8
+	Train IoU:  0.5962742567062378
+	Test IoU:   0.6078687310218811
+	 GPU:0 	Train loss: 0.9213518857220073
+	 GPU:3 	Train loss: 0.9627044841095254
+	Saving better model
+
+Epoch 9	 GPU:1 	Train loss: 0.9205914183899209
+
+	 GPU:3 	Train loss: 0.9717083602775762
+	 GPU:2 	Train loss: 0.9240633687119425
+	Train IoU:  0.6200094819068909
+	Test IoU:   0.6136142015457153
+	 GPU:0 	Train loss: 0.9509325432188717
+	Saving better model
+
+	 GPU:3 	Train loss: 0.9221016278973332	 GPU:2 	Train loss: 0.9578922950191262
+
+Epoch 10
+	 GPU:1 	Train loss: 0.8822092752397797
+	Train IoU:  0.6289671659469604
+	Test IoU:   0.6299291849136353
+	 GPU:0 	Train loss: 0.9365734877409758
+	Saving better model
+
+	 GPU:1 	Train loss: 0.8858741315794579	 GPU:2 	Train loss: 0.8903574608726266
+
+	 GPU:3 	Train loss: 0.9072420317449688
+Epoch 11
+	Train IoU:  0.638957679271698
+	Test IoU:   0.6186225414276123
+	 GPU:0 	Train loss: 0.8994800709647897
+
+
+	 GPU:3 	Train loss: 0.86968356002996Epoch 12
+
+	 GPU:1 	Train loss: 0.8996852032932234
+	 GPU:2 	Train loss: 0.8444932456369754
+	Train IoU:  0.6424345970153809
+	Test IoU:   0.6294023394584656
+	 GPU:0 	Train loss: 0.8362086724351954
+
+
+Epoch 13	 GPU:2 	Train loss: 0.8520340522130331
+
+	 GPU:3 	Train loss: 0.8192786349926466
+	 GPU:1 	Train loss: 0.8269509801894058
+	Train IoU:  0.6645861864089966
+	Test IoU:   0.6593729853630066
+	 GPU:0 	Train loss: 0.8081948966891678
+	Saving better model
+
+Epoch 14	 GPU:1 	Train loss: 0.8482779647097175
+
+	 GPU:2 	Train loss: 0.848311804326964
+	 GPU:3 	Train loss: 0.828221834368176
+	Train IoU:  0.6644266843795776
+	Test IoU:   0.6236945390701294
+	 GPU:0 	Train loss: 0.8200253546237946
+
+
+Epoch 15
+	 GPU:2 	Train loss: 0.7783370831130464
+	 GPU:3 	Train loss: 0.8087527729846813
+	 GPU:1 	Train loss: 0.7692345009173875
+	Train IoU:  0.6762367486953735
+	Test IoU:   0.6940231919288635
+	 GPU:0 	Train loss: 0.7574969901714796
+	Saving better model
+
+	 GPU:2 	Train loss: 0.7594771223303712	 GPU:1 	Train loss: 0.7559105529461378
+
+	 GPU:3 	Train loss: 0.7969137926896414
+Epoch 16
+	Train IoU:  0.6965441703796387
+	Test IoU:   0.6713005900382996
+	 GPU:0 	Train loss: 0.7700922091801962
+
+
+Epoch 17
+	 GPU:3 	Train loss: 0.7618235364372348
+	 GPU:2 	Train loss: 0.7502784629662832
+	 GPU:1 	Train loss: 0.780320742615947
+	Train IoU:  0.6862294673919678
+	Test IoU:   0.6763376593589783
+	 GPU:0 	Train loss: 0.7539867412896804
+
+
+	 GPU:3 	Train loss: 0.7266983073434712	 GPU:1 	Train loss: 0.7572420798702004
+
+	 GPU:2 	Train loss: 0.7933346860938602
+Epoch 18
+	Train IoU:  0.6757259368896484
+	Test IoU:   0.6629992723464966
+	 GPU:0 	Train loss: 0.7329913329930953
+
+
+	 GPU:3 	Train loss: 0.7401428211618353	 GPU:2 	Train loss: 0.7243663812125171
+
+	 GPU:1 	Train loss: 0.775858924160769
+Epoch 19
+	Train IoU:  0.7130643129348755
+	Test IoU:   0.6861002445220947
+	 GPU:0 	Train loss: 0.769908098159013
+
+
+	 GPU:3 	Train loss: 0.7258570036034525	 GPU:2 	Train loss: 0.7478846278455522
+
+Epoch 20
+	Train IoU:  0.7031409740447998
+	Test IoU:   0.708038330078125
+	 GPU:0 	Train loss: 0.7238346761391486
+	 GPU:1 	Train loss: 0.7012385479462
+	Saving better model
+
+	 GPU:1 	Train loss: 0.6953233620266855	 GPU:3 	Train loss: 0.6864873163494063
+
+Epoch 21
+	Train IoU:  0.7098081111907959
+	Test IoU:   0.710390031337738
+	 GPU:0 	Train loss: 0.7541283085758304	 GPU:2 	Train loss: 0.7070699129943494
+
+	Saving better model
+
+Epoch 22	 GPU:1 	Train loss: 0.695605257043132
+
+	 GPU:3 	Train loss: 0.7179993884063062
+	 GPU:2 	Train loss: 0.6637767538612271
+	Train IoU:  0.7188905477523804
+	Test IoU:   0.7045081853866577
+	 GPU:0 	Train loss: 0.6436558972906183
+
+
+Epoch 23	 GPU:3 	Train loss: 0.6669724938678153
+
+	 GPU:2 	Train loss: 0.6796774312301919	 GPU:1 	Train loss: 0.6385465172337897
+
+	Train IoU:  0.72674560546875
+	Test IoU:   0.7111024856567383
+	 GPU:0 	Train loss: 0.6730387622927442
+	Saving better model
+
+	 GPU:1 	Train loss: 0.6479394844284764
+	 GPU:2 	Train loss: 0.673969684375657
+	 GPU:3 	Train loss: 0.6943477760126562
+Epoch 24
+	Train IoU:  0.7455992102622986
+	Test IoU:   0.7120645046234131
+	 GPU:0 	Train loss: 0.6347138942391785
+	Saving better model
+
+	 GPU:1 	Train loss: 0.6366211358043883Epoch 25
+
+	 GPU:3 	Train loss: 0.5968995212036886
+	 GPU:2 	Train loss: 0.6155845206460835
+	Train IoU:  0.7394766807556152
+	Test IoU:   0.7097023725509644
+	 GPU:0 	Train loss: 0.6414459491217578
+
+
+	 GPU:3 	Train loss: 0.6235727491202178Epoch 26
+
+	 GPU:2 	Train loss: 0.6346348180079165
+	 GPU:1 	Train loss: 0.6463408115101449
+	Train IoU:  0.7323604822158813
+	Test IoU:   0.7102007269859314
+	 GPU:0 	Train loss: 0.6341960982040122
+
+
+	 GPU:2 	Train loss: 0.6538720743523704	 GPU:1 	Train loss: 0.6104566605738652
+
+Epoch 27
+	Train IoU:  0.7441339492797852
+	Test IoU:   0.7312953472137451
+	 GPU:0 	Train loss: 0.6702416033288578
+	 GPU:3 	Train loss: 0.6470685893738711
+	Saving better model
+
+Epoch 28	 GPU:3 	Train loss: 0.5735664146917837
+
+	 GPU:2 	Train loss: 0.6052428517076704
+	 GPU:1 	Train loss: 0.5919547700955544
+	Train IoU:  0.7634115219116211
+	Test IoU:   0.717706561088562
+	 GPU:0 	Train loss: 0.6222553687331117
+
+
+	 GPU:1 	Train loss: 0.6274320724201791	 GPU:2 	Train loss: 0.5948007724903248
+
+Epoch 29
+	Train IoU:  0.762993335723877
+	Test IoU:   0.7323464751243591
+	 GPU:0 	Train loss: 0.5772469843979235
+	 GPU:3 	Train loss: 0.6076279036056849
+	Saving better model
+
+	 GPU:1 	Train loss: 0.6306519215857541	 GPU:2 	Train loss: 0.6063307102447675
+
+Epoch 30
+	 GPU:3 	Train loss: 0.5908398508657644
+	Train IoU:  0.7421072721481323
+	Test IoU:   0.7445672750473022
+	 GPU:0 	Train loss: 0.6114908066796668
+	Saving better model
+
+Epoch 31	 GPU:2 	Train loss: 0.6072301851746477
+
+	 GPU:1 	Train loss: 0.5383851793077257
+	 GPU:3 	Train loss: 0.5778521262569192
+	Train IoU:  0.7621853947639465
+	Test IoU:   0.7372647523880005
+	 GPU:0 	Train loss: 0.5769685002756707
+
+
+Epoch 32
+	 GPU:1 	Train loss: 0.5783647228906184
+	 GPU:3 	Train loss: 0.5909042604911474	 GPU:2 	Train loss: 0.5955939830085377
+
+	Train IoU:  0.7614239454269409
+	Test IoU:   0.7470415830612183
+	 GPU:0 	Train loss: 0.5944441698583556
+	Saving better model
+
+	 GPU:1 	Train loss: 0.5732437208478833	 GPU:3 	Train loss: 0.550777401637148
+
+	 GPU:2 	Train loss: 0.596054235726227
+Epoch 33
+	Train IoU:  0.7722059488296509
+	Test IoU:   0.7272787690162659
+	 GPU:0 	Train loss: 0.5601631943826322
+
+
+	 GPU:2 	Train loss: 0.5794478180231871	 GPU:1 	Train loss: 0.5373855615839546
+
+	 GPU:3 	Train loss: 0.594027175395577
+Epoch 34
+	Train IoU:  0.746458113193512
+	Test IoU:   0.739739179611206
+	 GPU:0 	Train loss: 0.5350284386932114
+
+
+	 GPU:2 	Train loss: 0.5464568750725852	 GPU:1 	Train loss: 0.5305967284941379
+
+	 GPU:3 	Train loss: 0.5411019321577049
+Epoch 35
+	Train IoU:  0.7643305063247681
+	Test IoU:   0.7430151104927063
+	 GPU:0 	Train loss: 0.5319667377589662
+
+
+	 GPU:2 	Train loss: 0.535845254490405	 GPU:3 	Train loss: 0.5577786172981616	 GPU:1 	Train loss: 0.5058567198338332
+
+
+Epoch 36
+	Train IoU:  0.7544127702713013
+	Test IoU:   0.746992826461792
+	 GPU:0 	Train loss: 0.5493389219045639
+
+
+	 GPU:2 	Train loss: 0.5163445686116631	 GPU:3 	Train loss: 0.5503176989746682
+
+	 GPU:1 	Train loss: 0.505594280950817
+Epoch 37
+	Train IoU:  0.7628437280654907
+	Test IoU:   0.7378348112106323
+	 GPU:0 	Train loss: 0.5355834504704416
+
+
+slurmstepd: error: *** JOB 2024545 ON hkn0409 CANCELLED AT 2023-06-21T13:42:25 ***
+
+wandb: Run history:
+wandb:   test_iou ▁▂▄▅▅▆▅▅▅▆▆▆▇▇▇▇▇███
+wandb:  train_iou ▁▂▂▃▃▄▄▅▅▅▆▆▆▆▇▇█▇██
+wandb: train_loss █▅▄▄▃▃▃▃▃▂▂▂▂▂▁▁▁▁▁▁
+
+wandb: Run summary:
+wandb:   test_iou 0.7470415830612183
+wandb:  train_iou 0.7614239454269409
+wandb: train_loss 0.5944441698583556
+
+============================= JOB FEEDBACK =============================
+
+Job ID: 2024545
+Cluster: hk
+User/Group: ow7680/hk-project-test-aihero2
+State: CANCELLED (exit code 0)
+Partition: accelerated
+Nodes: 1
+Cores per node: 152
+Nodelist: hkn0409
+CPU Utilized: 00:00:00
+CPU Efficiency: 0.00% of 19-12:50:08 core-walltime
+Job Wall-clock time: 03:05:04
+Starttime: Wed Jun 21 10:37:21 2023
+Endtime: Wed Jun 21 13:42:25 2023
+Memory Utilized: 19.65 GB
+Memory Efficiency: 0.00% of 0.00 MB
+Energy Consumed: 7332942 Joule / 2036.92833333333 Watthours
+Average node power draw: 660.38742795389 Watt
+

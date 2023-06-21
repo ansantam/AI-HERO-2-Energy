@@ -1,0 +1,183 @@
+
+Lmod is automatically replacing "compiler/intel/19.1" with "compiler/gnu/11".
+
+
+The following have been reloaded with a version change:
+  1) mpi/openmpi/4.0 => mpi/openmpi/4.1
+
+
+The following have been reloaded with a version change:
+  1) mpi/openmpi/4.1 => mpi/openmpi/4.0
+
+wandb: Currently logged in as: crxu (ibpt-ml). Use `wandb login --relogin` to force relogin
+wandb: Tracking run with wandb version 0.15.4
+wandb: Run data is saved locally in /hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/wandb/run-20230619_183331-st9h3jz7
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run rural-resonance-18
+wandb: ⭐️ View project at https://wandb.ai/ibpt-ml/aihero-energy
+wandb: 🚀 View run at https://wandb.ai/ibpt-ml/aihero-energy/runs/st9h3jz7
+batch: 2
+n_trainablebackbone: 3
+split: 0.8
+epochs: 20
+lr: 0.0001
+seed: 42
+root: /hkfs/work/workspace/scratch/ih5525-E4/AI-HERO-2-Energy/energy-train-data/
+weight: DEFAULT
+normalize: True
+Training on cuda
+Epoch 0
+	Train loss: 1.8162521738494557
+	Train IoU:  0.45379406213760376
+	Test IoU:   0.45759716629981995
+	Saving better model
+
+Epoch 1
+	Train loss: 1.4207379698340867
+	Train IoU:  0.4678475260734558
+	Test IoU:   0.47738876938819885
+	Saving better model
+
+Epoch 2
+	Train loss: 1.2685791561347803
+	Train IoU:  0.4714807868003845
+	Test IoU:   0.5064098834991455
+	Saving better model
+
+Epoch 3
+	Train loss: 1.1973011289500861
+	Train IoU:  0.4756857454776764
+	Test IoU:   0.46826207637786865
+
+
+Epoch 4
+	Train loss: 1.1362513270757602
+	Train IoU:  0.4850243628025055
+	Test IoU:   0.5368722081184387
+	Saving better model
+
+Epoch 5
+	Train loss: 1.0862055142445548
+	Train IoU:  0.5145116448402405
+	Test IoU:   0.5244388580322266
+
+
+Epoch 6
+	Train loss: 1.0427408477220568
+	Train IoU:  0.5217270851135254
+	Test IoU:   0.5451714396476746
+	Saving better model
+
+Epoch 7
+	Train loss: 1.0020632583996003
+	Train IoU:  0.5480213165283203
+	Test IoU:   0.5721682906150818
+	Saving better model
+
+Epoch 8
+	Train loss: 0.9730595759660727
+	Train IoU:  0.5580381155014038
+	Test IoU:   0.533638596534729
+
+
+Epoch 9
+	Train loss: 0.9343083042999453
+	Train IoU:  0.5774557590484619
+	Test IoU:   0.5697252154350281
+
+
+Epoch 10
+	Train loss: 0.887335065017522
+	Train IoU:  0.5790018439292908
+	Test IoU:   0.5321571826934814
+
+
+Epoch 11
+	Train loss: 0.8546748133472918
+	Train IoU:  0.5995023250579834
+	Test IoU:   0.6138233542442322
+	Saving better model
+
+Epoch 12
+	Train loss: 0.8161859987722548
+	Train IoU:  0.6174049377441406
+	Test IoU:   0.5784207582473755
+
+
+Epoch 13
+	Train loss: 0.780905863199267
+	Train IoU:  0.6308652758598328
+	Test IoU:   0.6293402910232544
+	Saving better model
+
+Epoch 14
+	Train loss: 0.7576908546541802
+	Train IoU:  0.6532021164894104
+	Test IoU:   0.6106060147285461
+
+
+Epoch 15
+	Train loss: 0.7214025805565725
+	Train IoU:  0.6617762446403503
+	Test IoU:   0.6308989524841309
+	Saving better model
+
+Epoch 16
+	Train loss: 0.6948783719415895
+	Train IoU:  0.6755329370498657
+	Test IoU:   0.641385018825531
+	Saving better model
+
+Epoch 17
+	Train loss: 0.6664433565931749
+	Train IoU:  0.6871232390403748
+	Test IoU:   0.6591826677322388
+	Saving better model
+
+Epoch 18
+	Train loss: 0.6428772270370107
+	Train IoU:  0.6964907646179199
+	Test IoU:   0.6402062177658081
+
+
+Epoch 19
+	Train loss: 0.6255626713528353
+	Train IoU:  0.7036145925521851
+	Test IoU:   0.6194558143615723
+
+
+wandb: Waiting for W&B process to finish... (success).
+wandb: 
+wandb: Run history:
+wandb:   test_iou ▁▂▃▁▄▃▄▅▄▅▄▆▅▇▆▇▇█▇▇
+wandb:  train_iou ▁▁▁▂▂▃▃▄▄▄▅▅▆▆▇▇▇███
+wandb: train_loss █▆▅▄▄▄▃▃▃▃▃▂▂▂▂▂▁▁▁▁
+wandb: 
+wandb: Run summary:
+wandb:   test_iou 0.61946
+wandb:  train_iou 0.70361
+wandb: train_loss 0.62556
+wandb: 
+wandb: 🚀 View run rural-resonance-18 at: https://wandb.ai/ibpt-ml/aihero-energy/runs/st9h3jz7
+wandb: Synced 6 W&B file(s), 0 media file(s), 3 artifact file(s) and 1 other file(s)
+wandb: Find logs at: ./wandb/run-20230619_183331-st9h3jz7/logs
+
+============================= JOB FEEDBACK =============================
+
+Job ID: 2021801
+Cluster: hk
+User/Group: ow7680/hk-project-test-aihero2
+State: COMPLETED (exit code 0)
+Partition: accelerated
+Nodes: 1
+Cores per node: 152
+Nodelist: hkn0607
+CPU Utilized: 01:19:51
+CPU Efficiency: 0.68% of 8-03:36:56 core-walltime
+Job Wall-clock time: 01:17:13
+Starttime: Mon Jun 19 18:33:03 2023
+Endtime: Mon Jun 19 19:50:16 2023
+Memory Utilized: 5.11 GB
+Memory Efficiency: 0.00% of 0.00 MB
+Energy Consumed: 3054722 Joule / 848.533888888889 Watthours
+Average node power draw: 659.339952514569 Watt
